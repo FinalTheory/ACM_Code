@@ -8,6 +8,8 @@
 #include <climits>
 #include <ctime>
 #include <vector>
+#include <set>
+#include <stack>
 #include <sstream>
 #include <iomanip>
 
