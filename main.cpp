@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <functional>
 #include <cstdio>
 #include <cstdlib>
 #include <cmath>
@@ -11,12 +12,12 @@
 #include <set>
 #include <stack>
 #include <sstream>
+#include <queue>
 #include <iomanip>
 
 #define CLR(arr,val) memset(arr,val,sizeof(arr))
 
 using namespace std;
-
 
 int main()
 {

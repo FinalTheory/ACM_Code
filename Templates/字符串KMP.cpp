@@ -1,11 +1,3 @@
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <climits>
-#include <time.h>
 #define SIZE 1000
 #define MAX(x, y) (x) > (y) ? (x) : (y)
 #define MIN(x, y) (x) < (y) ? (x) : (y)
@@ -48,19 +40,7 @@ char * KMP( char * SRC, char * TAR )
 
 int main()
 {
-#ifndef ONLINE_JUDGE
-	freopen( "in.txt", "r", stdin );
-	//freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
-
 	char str1[SIZE], str2[SIZE];
 	cin >> str1 >> str2;
 	char * p = KMP(str1, str2);
-
-#ifndef ONLINE_JUDGE
-	program_end = clock();
-	cout << endl << ( program_end - program_start ) << " MS" << endl;
-#endif
 }

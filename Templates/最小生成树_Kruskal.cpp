@@ -5,16 +5,6 @@
  * @version 0.1
  * @date 2013-06-04
  */
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <cctype>
-#include <climits>
-#include <ctime>
-#include <vector>
 #define MAX(x, y) (x) > (y) ? (x) : (y)
 #define MIN(x, y) (x) < (y) ? (x) : (y)
 

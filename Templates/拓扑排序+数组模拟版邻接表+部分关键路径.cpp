@@ -6,19 +6,6 @@
  * @version 0.1
  * @date 2013-04-20
  */
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <cctype>
-#include <climits>
-#include <ctime>
-#include <vector>
-#include <sstream>
-#include <iomanip>
-#include <stack>
 #define MAX 499500
 #define CLR(arr,val) memset(arr,val,sizeof(arr))
 
@@ -32,16 +19,9 @@ int next_edge[MAX+10], v[MAX+10];
 int head[1010];
 int in[1010];
 
-
 int main()
 {
 	std::ios::sync_with_stdio(false);
-#ifndef ONLINE_JUDGE
-	freopen( "in.txt", "r", stdin );
-	//freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
 	int N, i, r1, r2, M, j, h;
 	stack<int> res;
 	while ( cin >> N )
@@ -104,9 +84,4 @@ int main()
 				max = start_time[i] + t[i];
 		cout << max << endl;
 	}
-
-#ifndef ONLINE_JUDGE
-	program_end = clock();
-	cerr << "Time consumed: " << endl << ( program_end - program_start ) << " MS" << endl;
-#endif
 }

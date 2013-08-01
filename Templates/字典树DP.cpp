@@ -7,19 +7,6 @@
  * @version 0.1
  * @date 2013-04-22
  */
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <cctype>
-#include <climits>
-#include <ctime>
-#include <vector>
-#include <sstream>
-#include <iomanip>
-#include <stack>
 #define MAX 10000
 #define CLR(arr,val) memset(arr,val,sizeof(arr))
 
@@ -97,12 +84,6 @@ void reverse( char * str )
 int main()
 {
 	std::ios::sync_with_stdio(false);
-#ifndef ONLINE_JUDGE
-	freopen( "in.txt", "r", stdin );
-	//freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
 	char word[40];
 	Trie * root;
 	int n, i, j, w;
@@ -160,9 +141,4 @@ int main()
 		else
 			cout << "-1" << endl;
 	}
-
-#ifndef ONLINE_JUDGE
-	program_end = clock();
-	cerr << "Time consumed: " << endl << ( program_end - program_start ) << " MS" << endl;
-#endif
 }

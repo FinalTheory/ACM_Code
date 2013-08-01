@@ -1,11 +1,3 @@
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <climits>
-#include <time.h>
 #define MAX(x, y) (x) > (y) ? (x) : (y)
 #define MIN(x, y) (x) < (y) ? (x) : (y)
 #define SIZE 50
@@ -38,13 +30,6 @@ void DFS( int num )
 
 int main()
 {
-#ifndef ONLINE_JUDGE
-	freopen( "in.txt", "r", stdin );
-	//freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
-
 	while( cin >> N >> K )
 	{
 		sum = 0;
@@ -54,9 +39,4 @@ int main()
 		DFS(0);
 		cout << sum << endl;
 	}
-
-#ifndef ONLINE_JUDGE
-	program_end = clock();
-	cout << ( program_end - program_start ) << " MS" << endl;
-#endif
 }

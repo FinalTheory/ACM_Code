@@ -5,18 +5,6 @@
  * @version 1.0
  * @date 2013-04-06
  */
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <cctype>
-#include <climits>
-#include <ctime>
-#include <vector>
-#include <sstream>
-#include <iomanip>
 #define MAX 200
 #define INF 0x3f3f3f3f
 #define CLR(arr,val) memset(arr,val,sizeof(arr))
@@ -30,12 +18,6 @@ char visited[MAX+10];
 int main()
 {
 	std::ios::sync_with_stdio(false);
-#ifndef ONLINE_JUDGE
-	freopen( "in.txt", "r", stdin );
-	//freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
 	int N, M, A, B, X, i, S, T, j;
 	while ( cin >> N >> M )
 	{
@@ -78,9 +60,4 @@ int main()
 		else
 			cout << "-1\n";
 	}
-
-#ifndef ONLINE_JUDGE
-	program_end = clock();
-	cerr << "Time consumed: " << endl << ( program_end - program_start ) << " MS" << endl;
-#endif
 }

@@ -3,15 +3,6 @@
 	组合算法采用01转换法，适用于m中选n个，若需要全组合则直接使用二进制转化法即可。
 	组合算法的递归实现不再写了，现有的这个更高效一些。
 */
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <cctype>
-#include <climits>
-#include <ctime>
 #define MAX(x, y) (x) > (y) ? (x) : (y)
 #define MIN(x, y) (x) < (y) ? (x) : (y)
 #define SWAP(x, y) (x) ^= (y) ^= (x) ^= (y)
@@ -129,21 +120,9 @@ void output( Any array[], char flags[], int num )
 
 int main()
 {
-#ifndef ONLINE_JUDGE
-	freopen( "in.txt", "r", stdin );
-	//freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
-
 	int nums[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 	int pos[10];
 	//combine( nums, 6, 10 );
 	combine( nums, pos, 3, 10, 3 );
 	cout << "Total: " << sum << endl;
-
-#ifndef ONLINE_JUDGE
-	program_end = clock();
-	cout << "Time consumed: " << endl << ( program_end - program_start ) << " MS" << endl;
-#endif
 }

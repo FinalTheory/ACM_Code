@@ -5,20 +5,6 @@
  * @version 0.1
  * @date 2013-06-03
  */
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <cctype>
-#include <climits>
-#include <ctime>
-#include <vector>
-#include <set>
-#include <stack>
-#include <sstream>
-#include <iomanip>
 #define MAX 50010
 #define INF 10000000
 #define eps 0.0000001
@@ -107,12 +93,6 @@ int Rotating_Calipers( int num )
 int main()
 {
 	//std::ios::sync_with_stdio(false);
-#ifndef ONLINE_JUDGE
-	freopen( "in.txt", "r", stdin );
-	//freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
 	int N, i;
 	TMD min_point;
 	int min_pos;
@@ -163,9 +143,4 @@ int main()
 		}
 		printf( "%d\n", Rotating_Calipers(N) );
 	}
-
-#ifndef ONLINE_JUDGE
-	program_end = clock();
-	cerr << "Time consumed: " << endl << ( program_end - program_start ) << " MS" << endl;
-#endif
 }
