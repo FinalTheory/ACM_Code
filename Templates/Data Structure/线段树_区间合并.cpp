@@ -8,20 +8,6 @@
  * @version 0.1
  * @date 2013-05-08
  */
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <cctype>
-#include <climits>
-#include <ctime>
-#include <vector>
-#include <set>
-#include <stack>
-#include <sstream>
-#include <iomanip>
 #define MAX 80010
 #define L_son root << 1
 #define R_son root << 1 | 1
@@ -144,12 +130,6 @@ void Query( int root, int w )
 int main()
 {
 	std::ios::sync_with_stdio(false);
-#ifndef ONLINE_JUDGE
-	freopen( "hotel.3.in", "r", stdin );
-	freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
 	int N, M, com, D, X;
 	while ( scanf("%d %d", &N, &M) != EOF )
 	{
@@ -179,9 +159,4 @@ int main()
  			}
 		}
 	}
-
-#ifndef ONLINE_JUDGE
-	program_end = clock();
-	cerr << "Time consumed: " << endl << ( program_end - program_start ) << " MS" << endl;
-#endif
 }

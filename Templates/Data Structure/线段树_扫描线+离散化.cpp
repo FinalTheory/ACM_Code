@@ -13,20 +13,6 @@
  * @version 1.0
  * @date 2013-05-13
  */
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <cctype>
-#include <climits>
-#include <ctime>
-#include <vector>
-#include <set>
-#include <stack>
-#include <sstream>
-#include <iomanip>
 #define L_son root << 1
 #define R_son root << 1 | 1
 #define MAX 210
@@ -114,13 +100,6 @@ void Insert( int root, int L, int R, int flag )
 
 int main()
 {
-	std::ios::sync_with_stdio(false);
-#ifndef ONLINE_JUDGE
-	freopen( "in.txt", "r", stdin );
-	//freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
 	int n, i, p_lines, p_buffer, p_height, j, index = 1;
 	double x1, y1, x2, y2, sum;
 	while ( scanf( "%d", &n ) && n )
@@ -166,9 +145,4 @@ int main()
 		printf("Test case #%d\nTotal explored area: %.2lf\n\n", index, sum);
 		index++;
 	}
-
-#ifndef ONLINE_JUDGE
-	program_end = clock();
-	cerr << "Time consumed: " << endl << ( program_end - program_start ) << " MS" << endl;
-#endif
 }

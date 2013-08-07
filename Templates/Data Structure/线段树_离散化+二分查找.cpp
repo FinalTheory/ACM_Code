@@ -6,17 +6,6 @@
  * @version 0.1
  * @date 2013-05-03
  */
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <cctype>
-#include <climits>
-#include <ctime>
-#include <sstream>
-#include <iomanip>
 #define MAX 20010
 #define L_son root << 1
 #define R_son root << 1 | 1
@@ -122,13 +111,6 @@ int Search( int key, int low, int high )
 
 int main()
 {
-	//std::ios::sync_with_stdio(false);
-#ifndef ONLINE_JUDGE
-	freopen( "in.txt", "r", stdin );
-	//freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
 	int c, n, i, prev;
 	scanf( "%d", &c );
 	while ( c-- )
@@ -171,9 +153,4 @@ int main()
 		Query( 1, 1, pointer - 1 );
 		printf("%d\n", sum);
 	}
-
-#ifndef ONLINE_JUDGE
-	program_end = clock();
-	cerr << "Time consumed: " << endl << ( program_end - program_start ) << " MS" << endl;
-#endif
 }

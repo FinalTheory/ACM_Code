@@ -8,20 +8,6 @@
  * @version 0.1
  * @date 2013-05-02
  */
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <cctype>
-#include <climits>
-#include <ctime>
-#include <vector>
-#include <set>
-#include <stack>
-#include <sstream>
-#include <iomanip>
 #define MAX 100010
 #define L_son root << 1
 #define R_son root << 1 | 1
@@ -96,13 +82,6 @@ void Update( int root, int L, int R, int Z )
 }
 int main()
 {
-	//std::ios::sync_with_stdio(false);
-#ifndef ONLINE_JUDGE
-	freopen( "in.txt", "r", stdin );
-	//freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
 	int T, i, k, N, Q, X, Y, Z;
 	scanf("%d", &T);
 	for ( k = 1; k <= T; ++k )
@@ -117,9 +96,4 @@ int main()
 		}
 		printf( "Case %d: The total value of the hook is %d.\n", k, Tree[1].nSum );
 	}
-
-#ifndef ONLINE_JUDGE
-	program_end = clock();
-	cerr << "Time consumed: " << endl << ( program_end - program_start ) << " MS" << endl;
-#endif
 }

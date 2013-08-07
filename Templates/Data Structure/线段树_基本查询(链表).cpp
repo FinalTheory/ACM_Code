@@ -8,19 +8,6 @@
  * @version 0.1
  * @date 2013-04-23
  */
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <cctype>
-#include <climits>
-#include <ctime>
-#include <vector>
-#include <sstream>
-#include <iomanip>
-#include <stack>
 #define MAX 50000
 #define INF 0x3f3f3f3f
 #define CLR(arr,val) memset(arr,val,sizeof(arr))
@@ -108,13 +95,6 @@ void Query( TMD * root, int L, int R, int * max_num, int * min_num )
 
 int main()
 {
-	//std::ios::sync_with_stdio(false);
-#ifndef ONLINE_JUDGE
-	freopen( "in.txt", "r", stdin );
-	//freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
 	int A, B, N, Q, i, num;
 	int max_num, min_num;
 	TMD * root;
@@ -142,9 +122,4 @@ int main()
 			printf( "%d\n", max_num - min_num );
 		}
 	}
-
-#ifndef ONLINE_JUDGE
-	program_end = clock();
-	cerr << "Time consumed: " << endl << ( program_end - program_start ) << " MS" << endl;
-#endif
 }
