@@ -1,3 +1,10 @@
+#if defined(__GNUC__)
+#pragma GCC optimize ("O2")
+#endif
+#if defined(_MSC_VER)
+#pragma comment(linker, "/STACK:36777216")
+#endif
+
 #include <iostream>
 #include <algorithm>
 #include <functional>

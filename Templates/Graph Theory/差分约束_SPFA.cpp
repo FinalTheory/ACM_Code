@@ -74,7 +74,7 @@ int main()
 			scanf("%s", str);
 			if ( str[0] == '#' ) break;
 			scanf("%d %d", &a, &b);
-			ww = 0;	//修正为小于等于
+			ww = 0;
 			if ( str[0] == 'F' )
 				ww -= _time[a];
 			if ( str[2] == 'F' )
