@@ -1,8 +1,11 @@
 /**
  * @file POJ_1523.cpp
- * @brief  Tarjan算法求图中割点，利用了两条性质：
- * 1 若深度优先生成树的根有两棵或两棵以上的子树，则此根顶点必定为关节点；
- * 2 若生成树中某个非叶子顶点v，其孩子结点均没有指向 v 的祖先的回边，则 v 为关节点。
+ * @brief  Tarjan算法求图中割点
+ * @hint    利用了两条性质：
+ *	    1 若深度优先生成树的根有两棵或两棵以上的子树，则此根顶点必定为关节点；
+ *	    2 若生成树中某个非叶子顶点v，其孩子结点均没有指向 v 的祖先的回边，则 v 为关节点。
+ * @input   STL邻接表存储的有向/无向图
+ * @output  res数组中存储去掉某个点之后增加的连通分量个数加一（考虑到图中本身至少有一个连通分量）
  * @author FinalTheory
  * @version 0.1
  * @date 2013-08-01
@@ -49,51 +52,30 @@ void Tarjan( int u, bool isroot )
 		//这里理解不好的话可以用一个星状图模拟一下。
 		res.push_back( make_pair(u, cnt + 1) );
 }
-
-int main()
+//这是另外一个版本，使用静态数组记录结果
+void Tarjan( int u, bool isroot )
 {
-	//std::ios::sync_with_stdio(false);
-	int u, v;
-	bool has_input;
-	int idx = 1;
-	while (true)
+	visited[u] = true;
+	int v, cnt = 0;
+	DFN[u] = LOW[u] = ++TimeStamp;
+	for ( int i = 0; i < Adja[u].size(); ++i )
 	{
-		has_input = false;
-		for ( int i = 1; i <= MAX; ++i )
-			Adja[i].clear();
-		while ( true )
-		{
-			scanf("%d", &u);
-			if ( u != 0 )
-			{
-				has_input = true;
-				scanf("%d", &v);
-				Adja[u].push_back(v);
-				Adja[v].push_back(u);
-			}
-			else if ( has_input )
-			{
-				break;
-			}
-			else
-			{
-				goto end;
-			}
-		}
-		CLR( DFN, 0 );
-		res.clear();
-		TimeStamp = 0; ans = 0; 
-		Tarjan( 1, true );
-		printf("Network #%d\n", idx++);
-		if ( res.size() == 0 )
-			printf("  No SPF nodes\n\n");
-		else
-		{
-			sort( res.begin(), res.end() );
-			for ( int i = 0; i < res.size(); ++i )
-				printf("  SPF node %d leaves %d subnets\n", res[i].first, res[i].second);
-			puts("");
+		v = Adja[u][i];
+		//可以用这样的写法枚举去掉某一个点
+		if ( v == _remove ) continue;
+		if ( !DFN[v] ) {
+			Tarjan(v, false);
+			LOW[u] = min( LOW[u], LOW[v] );
+			if ( isroot )
+				cnt++;
+			else if ( LOW[v] >= DFN[u] )
+				cnt++;
+		} else {
+			LOW[u] = min( LOW[u], DFN[v] );
 		}
 	}
-	end:;
+	if ( isroot && cnt >= 2 )
+		res[u] = cnt;
+	else if ( !isroot && cnt )
+		res[u] = cnt + 1;
 }
