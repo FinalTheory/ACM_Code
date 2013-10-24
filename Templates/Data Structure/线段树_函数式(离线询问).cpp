@@ -16,6 +16,9 @@
  * @version 0.1
  * @date 2013-09-08
  */
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
 #define MAX 100010
 #define CLR(arr,val) memset(arr,val,sizeof(arr))
 using namespace std;
@@ -27,7 +30,6 @@ struct TMD
 {
 	int sum, L_son, R_son;
 } Tree[MAX<<5];
-
 inline int CreateNode( int _sum, int _L_son, int _R_son )
 {
 	int idx = ++cnt;
@@ -36,17 +38,6 @@ inline int CreateNode( int _sum, int _L_son, int _R_son )
 	Tree[idx].R_son = _R_son;
 	return idx;
 }
-
-void CreateTree( int & root, int L, int R )
-{
-	//这里左右儿子初始化为零相当于NULL
-	root = CreateNode( 0, 0, 0 );
-	if ( L == R ) return;
-	int M = ( L + R ) >> 1;
-	CreateTree( Tree[root].L_son, L, M );
-	CreateTree( Tree[root].R_son, M + 1, R );
-}
-
 void Insert( int & root, int pre_rt, int pos, int L, int R )
 {
 	//从根节点往下更新到叶子，新建立出一路更新的节点，这样就是一颗新树了。
@@ -58,7 +49,6 @@ void Insert( int & root, int pre_rt, int pos, int L, int R )
 	else
 		Insert( Tree[root].R_son, Tree[pre_rt].R_son, pos, M + 1, R );
 }
-
 int Query( int S, int E, int L, int R, int K )
 {
 	if ( L == R ) return L;
@@ -70,15 +60,12 @@ int Query( int S, int E, int L, int R, int K )
 	else
 		return Query( Tree[S].R_son, Tree[E].R_son, M + 1, R, K - sum );
 }
-
 int main()
 {
 	int n, m, num, pos, T;
-	scanf("%d", &T);
-	while ( T-- )
+	while ( scanf("%d %d", &n, &m) != EOF )
 	{
-		scanf("%d %d", &n, &m);
-		cnt = 0;
+		cnt = 0; root[0] = 0;
 		for ( int i = 1; i <= n; ++i )
 		{
 			scanf("%d", &nums[i]);
@@ -86,7 +73,6 @@ int main()
 		}
 		sort( sorted + 1, sorted + 1 + n );
 		num = unique( sorted + 1, sorted + n + 1 ) - ( sorted + 1 );
-		CreateTree( root[0], 1, num );
 		for ( int i = 1; i <= n; ++i )
 		{
 			//实际上是对每个元素建立了一颗线段树，保存其根节点
@@ -102,3 +88,4 @@ int main()
 		}
 	}
 }
+
