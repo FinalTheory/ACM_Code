@@ -7,12 +7,7 @@
  * @date 2013-04-10
  */
 #define eps 0.0000001
-#define CLR(arr,val) memset(arr,val,sizeof(arr))
-
-using namespace std;
-
 int CF[20], T;
-
 double calc( double x )
 {
 	double ans = CF[T];
@@ -20,7 +15,6 @@ double calc( double x )
 		ans = ans * x + CF[i];
 	return ans;
 }
-
 double solve( double up, double down )
 {
 	double mid;
