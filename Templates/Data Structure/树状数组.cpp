@@ -37,3 +37,23 @@ int Query( int pos )
 	}
 	return sum;
 }
+//Ó¦ÓÃ£ºÄæÐò¶Ô£º
+int main()
+{
+	int n;
+	while ( scanf("%d", &n) != EOF )
+	{
+		CLR(Tree, 0);
+		int res = 0;
+		N = n;
+		for ( int i = 0; i < n; ++i )
+			{scanf("%d", &nums[i]); nums[i]++;}
+		for ( int i = 0; i < n; ++i )
+		{
+			Add(nums[i], 1);
+			res += i + 1 - Query(nums[i]);
+		}
+		printf("%d\n", res);
+	}
+    
+}
