@@ -13,6 +13,22 @@ bool prime[MAX+10];
 //记录欧拉函数
 int E[MAX+10];
 
+LL euler(LL n)
+{
+     LL i;
+     LL res = n, a = n;
+     for( i = 2; i * i <= a; ++i )
+     {
+         if( a % i == 0 )
+         {
+             res -= res/i;
+             while( a % i == 0 ) a/=i;
+         }
+     }
+     if(a > 1) res -= res/a;
+     return res;
+}
+
 int main()
 {
 	std::ios::sync_with_stdio(false);
