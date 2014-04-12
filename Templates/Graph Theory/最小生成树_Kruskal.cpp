@@ -1,66 +1,60 @@
 /**
  * @file 最小生成树_Kruskal.cpp
- * @brief  标准模版。 
+ * @brief  最小生成树算法模版 
+ * @hint    时间复杂度O(e*lg(e))，其中e为边数。
+ *	    简单的实现就可以带来较好的时间复杂度，推荐使用！
  * @author FinalTheory
  * @version 0.1
- * @date 2013-06-04
+ * @date 2014-03-21
  */
-#define MAX(x, y) (x) > (y) ? (x) : (y)
-#define MIN(x, y) (x) < (y) ? (x) : (y)
+#define MAX_e 100010
+#define MAX_v 10010
 
-using namespace std;
+int c[MAX_v];
 
 struct TMD
 {
-	int u, v, w;
-} roads[10001];
+    int u, v, w;
+} r[MAX_e];
 
-bool fuck( TMD & A, TMD & B )
+bool fuck( const TMD & a, const TMD & b )
 {
-	return A.w < B.w;
+    return a.w < b.w;
 }
 
-char intree[101], flag[10001];
+int Tree[MAX_v];
+
+int find_root( int node )
+{
+    if ( Tree[node] == node )
+        return node;
+    else
+        return Tree[node] = find_root(Tree[node]);
+}
 
 int main()
 {
-	std::ios::sync_with_stdio(false);
-	int N, i, j, sum;
-	char changed;
-	while ( cin >> N )
-	{
-		if ( !N )
-			break;
-		if ( N == 1 )
-		{
-			cout << "0\n";
-			continue;
-		}
-		memset(roads, 0, sizeof(roads));
-		memset( intree, 0, sizeof(intree) );
-		memset( flag, 0, sizeof(flag) );
-		sum = 0;
-		for ( i = 0; i < N*(N-1)/2; ++i )
-			cin >> roads[i].u >> roads[i].v >> roads[i].w;
-		sort( roads, roads + i, fuck );
-		intree[1] = changed = 1;
-		while ( changed )
-		{
-			changed = 0;
-			for ( j = 0; j < i; ++j )
-			{
-				if ( flag[j] )
-					continue;
-				if ( intree[roads[j].u] && !intree[roads[j].v] || !intree[roads[j].u] && intree[roads[j].v] )
-				{
-					intree[roads[j].u] = intree[roads[j].v] = 1;
-					sum += roads[j].w;
-					flag[j] = 1;
-					changed = 1;
-					break;	
-				}
-			}
-		}
-		cout << sum << '\n';
-	}
+    int n, m;
+    while ( scanf("%d %d", &n, &m) != EOF )
+    {
+        rep(i, m) {
+            r[i].u = INT();
+            r[i].v = INT();
+            r[i].w = INT();
+        }
+        REP(i, 1, n + 1) Tree[i] = i;
+        sort( r, r + m, fuck );
+        int ans = 0;
+        rep(i, m)
+        {
+            int u = r[i].u, v = r[i].v;
+            int root_u = find_root(u), root_v = find_root(v);
+            if ( root_u != root_v )
+            {
+                ans += r[i].w;
+                Tree[root_u] = root_v;
+            }
+        }
+        cout << ans << endl;
+    }
 }

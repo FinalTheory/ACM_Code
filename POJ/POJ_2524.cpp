@@ -1,3 +1,12 @@
+/**
+ * @file POJ_2524.cpp
+ * @brief   并查集，水题
+ * @hint    注意合并的是根节点
+ * @feeling 没仔细想居然WA了两发，尼玛……
+ * @author FinalTheory
+ * @version 0.1
+ * @date 2014-04-12
+ */
 #if defined(__GNUC__)
 #pragma GCC optimize ("O2")
 #endif
@@ -61,6 +70,15 @@ inline int INT()
 		return x;
 }
 
+#define MAX 50010
+int Tree[MAX];
+
+int Find(int v){
+    if(Tree[v]!=v)
+        Tree[v]=Find(Tree[v]);
+    return Tree[v];
+}
+
 int main()
 {
 	//std::ios::sync_with_stdio(false);
@@ -70,7 +88,25 @@ int main()
 	clock_t program_start, program_end;
 	program_start = clock();
 #endif
-
+    int n, m, idx = 1;
+    while ( scanf("%d %d", &n, &m) != EOF && n + m )
+    {
+        int a, b;
+        rep(i, n + 1) Tree[i] = i;
+        rep(i, m)
+        {
+            a = INT();
+            b = INT();
+            int root_a = Find(a);
+            int root_b = Find(b);
+            if ( root_a != root_b )
+                Tree[root_b] = root_a;
+        }
+        int res = 0;
+        REP(i, 1, n + 1) if ( Tree[i] == i )
+            res++;
+        printf("Case %d: %d\n", idx++, res);
+    }
 #ifdef FUCK
 	program_end = clock();
 	cerr << "Time consumed: " << endl << ( program_end - program_start ) << " MS" << endl;

@@ -1,64 +1,58 @@
-/**
- * @file 线段树_单点更新.cpp
- * @brief   HDU1166，线段树单点更新问题，Insert函数用于插入。
- * 更新的时候直接相当于对于指定位置插入新元素就可以了。
- * @author FinalTheory
- * @version 1.0
- * @date 2013-04-24
- */
 #define MAX 50010
 #define L_son root << 1
 #define R_son root << 1 | 1
 #define Father root >> 1
-#define CLR(arr,val) memset(arr,val,sizeof(arr))
 
-using namespace std;
+int Sum[MAX<<2];
 
-struct TMD
+inline void PushUp( int root )
 {
-	int L, R, Sum;
-} Tree[MAX<<2];
+    Sum[root] = Sum[L_son] + Sum[R_son];
+}
 
 void CreateTree( int root, int L, int R )
 {
-	Tree[root].L = L;
-	Tree[root].R = R;
-	Tree[root].Sum = 0;
-	if ( L == R )
-		return;
+	Sum[root] = 0;
+	if ( L == R ) {
+        scanf("%d", &Sum[root]);
+        return;
+	}
 	int M = ( L + R ) >> 1;
 	CreateTree( L_son, L, M );
 	CreateTree( R_son, M + 1, R );
+	PushUp(root);
 }
 
-void Insert( int root, int pos, int value )
+void Insert( int root, int L, int R, int pos, int value )
 {
-	Tree[root].Sum += value;
-	if ( Tree[root].L == pos && Tree[root].R == pos )
-		return;
-	int M = ( Tree[root].L + Tree[root].R ) >> 1;
+	if ( L == pos && R == pos ) {
+        Sum[root] += value;
+        return;
+    }
+	int M = ( L + R ) >> 1;
 	if ( pos > M )
-		Insert( R_son, pos, value );
+		Insert( R_son, M + 1, R, pos, value );
 	else
-		Insert( L_son, pos, value );
+		Insert( L_son, L, M, pos, value );
+    PushUp(root);
 }
 
-int Query( int root, int L, int R )
+int Query( int root, int L, int R, int l, int r )
 {
-	if ( L == Tree[root].L && R == Tree[root].R )
-		return Tree[root].Sum;
-	int M = ( Tree[root].L + Tree[root].R ) >> 1;
-	if ( R <= M )
-		return Query( L_son, L, R );
-	else if ( L > M )
-		return Query( R_son, L, R );
+	if ( l == L && r == R )
+		return Sum[root];
+	int M = ( L + R ) >> 1;
+	if ( r <= M )
+		return Query( L_son, L, M, l, r );
+	else if ( l > M )
+		return Query( R_son, M + 1, R, l, r );
 	else
-		return Query( L_son, L, M ) + Query( R_son, M + 1, R );
+		return Query( L_son, L, M, l, M ) + Query( R_son, M + 1, R, M + 1, r );
 }
 
 int main()
 {
-	int T, N, num, a, b, idx;
+	int T, N, a, b, idx;
 	char str[20];
 	scanf("%d", &T);
 	for ( idx = 1; idx <= T; ++idx )
@@ -66,11 +60,6 @@ int main()
 		printf("Case %d:\n", idx);
 		scanf("%d", &N);
 		CreateTree( 1, 1, N );
-		for ( int i = 0; i < N; ++i )
-		{
-			scanf( "%d", &num );
-			Insert( 1, i + 1, num );
-		}
 		while (true)
 		{
 			scanf("%s", str);
@@ -78,11 +67,11 @@ int main()
 				break;
 			scanf("%d %d", &a, &b);
 			if ( str[0] == 'Q' )
-				printf("%d\n", Query( 1, a, b ));
+				printf("%d\n", Query( 1, 1, N, a, b ));
 			else if ( str[0] == 'A' )
-				Insert( 1, a, b );
+				Insert( 1, 1, N, a, b );
 			else
-				Insert( 1, a, -b );
+				Insert( 1, 1, N, a, -b );
 		}
 	}
 }

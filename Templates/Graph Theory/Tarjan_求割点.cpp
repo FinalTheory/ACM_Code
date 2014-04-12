@@ -19,7 +19,6 @@ int LOW[MAX+10], DFN[MAX+10];
 int TimeStamp;
 vector<int> Adja[MAX+10];
 vector< pair<int,int> > res;
-int ans;
 void Tarjan( int u, bool isroot )
 {
 	int v, cnt = 0;//记录去掉该点之后的连通分支个数

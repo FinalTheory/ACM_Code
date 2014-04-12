@@ -1,53 +1,34 @@
-#if defined(__GNUC__)
-#pragma GCC optimize ("O2")
-#endif
-#if defined(_MSC_VER)
-#pragma comment(linker, "/STACK:36777216")
-#endif
-
-#include <iostream>
-#include <algorithm>
-#include <functional>
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <cctype>
-#include <climits>
-#include <ctime>
-#include <vector>
-#include <set>
-#include <stack>
-#include <sstream>
-#include <queue>
-#include <iomanip>
 #define MAX 100010
 #define L_son root << 1
 #define R_son root << 1 | 1
 #define Father root >> 1
-#define CLR(arr,val) memset(arr,val,sizeof(arr))
 
-using namespace std;
-typedef long long LL;
+LL nSum[MAX<<2], nInc[MAX<<2];
+int Len[MAX<<2];
 
-struct TMD
-{
-	int L, R;
-	LL nSum, nInc;
-	int len(){return R - L + 1;}
-}Tree[MAX<<2];
 inline void PushUp( int root )
 {
-	Tree[root].nSum = Tree[L_son].nSum + Tree[R_son].nSum;
+	nSum[root] = nSum[L_son] + nSum[R_son];
 }
-void CreateTree( int root, int L, int R )  
-{  
-	Tree[root].L = L;
-	Tree[root].R = R;
-	Tree[root].nInc = 0;
-	if (L == R)
+
+inline void PushDown( int root )
+{
+	if ( nInc[root] != 0 )
 	{
-		scanf("%lld", &Tree[root].nSum);
+		nInc[L_son] += nInc[root];
+		nInc[R_son] += nInc[root];
+		nSum[L_son] += nInc[root] * Len[L_son];
+		nSum[R_son] += nInc[root] * Len[R_son];
+		nInc[root] = 0;
+	}
+}
+
+void CreateTree( int root, int L, int R )
+{
+	nInc[root] = 0;
+	Len[root] = R - L + 1;
+	if (L == R) {
+		scanf("%I64d", &nSum[root]);
 		return;
 	}
 	int M = ( L + R ) >> 1;
@@ -56,64 +37,46 @@ void CreateTree( int root, int L, int R )
 	PushUp(root);
 }
 
-inline void PushDown( int root )
-{
-	if ( Tree[root].nInc != 0 )
-	{
-		Tree[L_son].nInc += Tree[root].nInc;
-		Tree[R_son].nInc += Tree[root].nInc;
-		Tree[L_son].nSum += Tree[root].nInc * Tree[L_son].len();
-		Tree[R_son].nSum += Tree[root].nInc * Tree[R_son].len();
-		Tree[root].nInc = 0;
-	}
-}
 
-void Add( int root, int L, int R, int num )
+void Update( int root, int L, int R, int l, int r, int num )
 {
-	if ( Tree[root].L == L && Tree[root].R == R )
+	if ( l == L && r == R )
 	{
-		Tree[root].nInc += num;
-		Tree[root].nSum += (LL)num * Tree[root].len();
+		nInc[root] += num;
+		nSum[root] += (LL)num * Len[root];
 		return;
 	}
 	PushDown(root);
-	int M = ( Tree[root].L + Tree[root].R ) >> 1;
-	if ( R <= M )
-		Add( L_son, L, R, num );
-	else if ( L > M )
-		Add( R_son, L, R, num );
+	int M = ( L + R ) >> 1;
+	if ( r <= M )
+		Update( L_son, L, M, l, r, num );
+	else if ( l > M )
+		Update( R_son, M + 1, R, l, r, num );
 	else
 	{
-		Add( L_son, L, M, num );
-		Add( R_son, M + 1, R, num );
+		Update( L_son, L, M, l, M, num );
+		Update( R_son, M + 1, R, M + 1, r, num );
 	}
 	PushUp(root);
 }
 
-LL Query( int root, int L, int R )
+LL Query( int root, int L, int R, int l, int r )
 {
-	if ( L == Tree[root].L && R == Tree[root].R )
-		return Tree[root].nSum;
-	PushDown( root );
-	int M = ( Tree[root].L + Tree[root].R ) >> 1;
-	if ( R <= M )
-		return Query( L_son, L, R );
-	else if ( L > M )
-		return Query( R_son, L, R );
+	if ( L == l && R == r )
+		return nSum[root];
+	PushDown(root);
+	int M = ( L + R ) >> 1;
+	if ( r <= M )
+		return Query( L_son, L, M, l, r );
+	else if ( l > M )
+		return Query( R_son, M + 1, R, l, r );
 	else
-		return Query( L_son, L, M ) + Query( R_son, M + 1, R );
+		return Query( L_son, L, M, l, M ) + Query( R_son, M + 1, R, M + 1, r );
 }
 
 int main()
 {
-	std::ios::sync_with_stdio(false);
-#ifndef ONLINE_JUDGE
-	freopen( "in.txt", "r", stdin );
-	//freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
-	int N, Q, num;
+	int N, Q;
 	char str[5];
 	while ( scanf("%d %d", &N, &Q) != EOF )
 	{
@@ -125,15 +88,10 @@ int main()
 			if ( str[0] == 'C' )
 			{
 				scanf("%d", &c);
-				Add( 1, a, b, c );
+				Update( 1, 1, N, a, b, c );
 			}
 			else
-				printf("%lld\n", Query( 1, a, b ));
+				printf("%I64d\n", Query( 1, 1, N, a, b ));
 		}
 	}
-
-#ifndef ONLINE_JUDGE
-	program_end = clock();
-	cerr << "Time consumed: " << endl << ( program_end - program_start ) << " MS" << endl;
-#endif
 }
