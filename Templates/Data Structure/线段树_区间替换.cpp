@@ -1,4 +1,4 @@
-#define MAX 100010
+﻿#define MAX 100010
 #define L_son root << 1
 #define R_son root << 1 | 1
 #define Father root >> 1
