@@ -37,6 +37,19 @@ int Query( int pos )
 	}
 	return sum;
 }
+
+int Query_max( int l, int r ) {
+     int ans = num[r];
+     while(true){
+          ans = MAX(ans, num[r]);
+          if( r == l ) break;
+          for( r -= 1; r - l >= Lowbit(r); r -= Lowbit(r) ){
+               ans = MAX(ans, idx[r]);
+          }
+     }
+     return ans;
+}
+
 //Ó¦ÓÃ£ºÄæĞò¶Ô£º
 int main()
 {
@@ -55,5 +68,5 @@ int main()
 		}
 		printf("%d\n", res);
 	}
-    
+
 }
