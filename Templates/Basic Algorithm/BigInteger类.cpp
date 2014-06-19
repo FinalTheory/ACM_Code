@@ -1,9 +1,14 @@
-/*
-	为了方便，双目操作符使用友元函数重载。
-	由于使用了cin/cout，因此关闭了与stdio的同步。
-	这样可以提高I/O效率，但是不能再使用scanf()/printf()。
-	MAXDIGITS定义了整数最大长度，计算乘法时注意数据的长度。
-*/
+/**
+ * @file BigInteger类.cpp
+ * @brief   一个模仿Java大整数运算类的C++实现
+ * @hint    为了方便，双目操作符使用友元函数重载；
+ *	    由于使用了cin/cout，因此关闭了与stdio的同步；
+ *	    这样可以提高I/O效率，但是不能再使用scanf()/printf()；
+ *	    MAXDIGITS定义了整数最大长度，计算乘法时需要注意数据的长度。
+ * @author FinalTheory
+ * @version 0.1
+ * @date 2012-07-13
+ */
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -367,17 +372,4 @@ BigInteger operator ^ ( BigInteger A, int B )
 
 int main()
 {
-	std::ios::sync_with_stdio(false);
-#ifndef ONLINE_JUDGE
-	freopen( "in.txt", "r", stdin );
-	//freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
-
-	
-#ifndef ONLINE_JUDGE
-	program_end = clock();
-	cout << "Time consumed: " << endl << ( program_end - program_start ) << " MS" << endl;
-#endif
 }

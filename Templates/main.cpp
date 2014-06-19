@@ -25,6 +25,7 @@
 #include <cctype>
 #include <climits>
 #include <ctime>
+
 using namespace std;
 
 #define CLR(arr,val) memset(arr,val,sizeof(arr))
@@ -38,7 +39,6 @@ using namespace std;
 #define PB push_back
 #define MP make_pair
 #define PQ priority_queue
-#define MPQ priority_queue<int, std::vector<int>, std::greater<int> >
 
 typedef long long LL;
 typedef unsigned long long ULL;
@@ -46,6 +46,7 @@ typedef long double LD;
 typedef vector<int> VI;
 typedef vector<string> VS;
 typedef pair<int,int> PII;
+typedef priority_queue<int, std::vector<int>, std::greater<int> > MPQ;
 
 const int INF = 0x3f3f3f3f;
 const int MOD = 1000000007;
@@ -58,7 +59,7 @@ inline int INT()
     int x = 0;
     for( ; ( c < 48 || c > 57 ); c = getchar() );
     for( ; ( c > 47 && c < 58 ); c = getchar() ) x = x * 10 + c - 48;
-		return x;
+    return x;
 }
 
 int main()
@@ -67,12 +68,5 @@ int main()
 #ifdef FUCK
 	freopen( "in.txt", "r", stdin );
 	//freopen( "out.txt", "w", stdout );
-	clock_t program_start, program_end;
-	program_start = clock();
-#endif
-
-#ifdef FUCK
-	program_end = clock();
-	cerr << "Time consumed: " << endl << ( program_end - program_start ) << " MS" << endl;
 #endif
 }

@@ -1,27 +1,27 @@
 /**
- * @file main.cpp
- * @brief   矩阵快速幂模版，注意需要求模的地方.
- * @hint    注意这里的非递归版本实际上是利用了二进制的思想
+ * @file    POJ_3070.cpp
+ * @brief   矩阵快速幂模版
+ * @hint    有递归和非递归版本，后者利用了二进制思想。
+ * @test    模版测试题目：POJ_3070
  * @author FinalTheory
- * @version 0.1
- * @date 2013-10-27
+ * @version 1.0
+ * @date 2014-05-13
  */
-#define MAX 10
-#define CLR(arr,val) memset(arr,val,sizeof(arr))
-const int MOD = 9973;
+const int MAX = 2;
+
 struct Mat
 {
     int val[MAX][MAX], n;
 } M;
+
 inline Mat operator * ( Mat A, Mat B )
 {
     Mat res;
     res.n = A.n;
     CLR(res.val, 0);
-    for ( int i = 0; i < A.n; ++i )
-    for ( int j = 0; j < A.n; ++j )
-    for ( int k = 0; k < A.n; ++k )
-    {
+    rep(i, A.n)
+    rep(j, A.n)
+    rep(k, A.n) {
         res.val[i][j] += A.val[i][k] * B.val[k][j];
         res.val[i][j] %= MOD;
     }
@@ -38,13 +38,12 @@ Mat Fast_Pow( Mat A, int k )
         return A * A;
 }
 
-Mat Fast_Pow2( Mat & A, int k )
+Mat Fast_Pow2( Mat A, int k )
 {
 	Mat ans;
 	ans.n = A.n;
 	CLR( ans.val, 0 );
-	for ( int i = 0; i < A.n; ++i )
-		ans.val[i][i] = 1;
+	rep(i, A.n) ans.val[i][i] = 1;
 	while ( k )
 	{
 		if ( k & 1 )
@@ -54,27 +53,21 @@ Mat Fast_Pow2( Mat & A, int k )
 	}
 	return ans;
 }
-//示例：求矩阵的秩
+
 int main()
 {
-	
-    int T, n, k;
-    scanf("%d", &T);
-    while ( T-- )
-    {
-    	scanf("%d %d", &n, &k);
-    	M.n = n;
-        for ( int i = 0; i < n; ++i )
-        	for ( int j = 0; j < n; ++j )
-            	scanf("%d", &M.val[i][j]);
-        Mat res = Fast_Pow2(M, k);
-        int ans = 0;
-        for ( int i = 0; i < n; ++i )
-        {
-            ans += res.val[i][i];
-            ans %= MOD;
-        }
-        printf("%d\n", ans);
-    }
+	int n;
+	M.n = 2;
+	M.val[0][0] = 1; M.val[0][1] = 1;
+	M.val[1][0] = 1; M.val[1][1] = 0;
+	while ( scanf("%d", &n) != EOF && n != -1 )
+	{
+		if ( n == 0 ) {
+			puts("0");
+			continue;
+		}
+		Mat res = Fast_Pow(M, n);
+		printf("%d\n", res.val[0][1]);
+	}
 }
 
