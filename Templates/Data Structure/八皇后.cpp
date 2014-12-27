@@ -40,3 +40,43 @@ int main()
 		cout << sum << endl;
 	}
 }
+
+
+//下面是一种可以输出方案的解法，核心思路跟上面一样，是在LeetCode上面提交的代码
+class Solution {
+public:
+    static const int MAX = 100;
+    bool flag[MAX], diag1[2*MAX-1], diag2[2*MAX-1];
+    char mp[MAX][MAX];
+    vector<vector<string> > res;
+    vector<vector<string> > solveNQueens(int n) {
+        res.clear();
+        CLR(flag, 0);
+        CLR(diag1, 0);
+        CLR(diag2, 0);
+        rep(i, n) rep(j, n) mp[i][j] = '.';
+        DFS(0, n);
+        return res;
+    }
+    void DFS( int col, int n )
+    {
+        if ( col >= n ) {
+            vector<string> cur;
+            rep(i, n) cur.PB(string(mp[i]));
+            res.PB(cur);
+            return;
+        }
+        rep(row, n) {
+            if ( flag[row] || diag1[n - row + col - 1] || diag2[row + col] ) continue;
+            flag[row] = true;
+            diag1[n - row + col - 1] = true;
+            diag2[row + col] = true;
+            mp[row][col] = 'Q';
+            DFS(col + 1, n);
+            flag[row] = false;
+            diag1[n - row + col - 1] = false;
+            diag2[row + col] = false;
+            mp[row][col] = '.';
+        }
+    }
+};
